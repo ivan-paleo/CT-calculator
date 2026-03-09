@@ -133,7 +133,7 @@ In this tab, the field-of-view (FOV), assuming identical dimensions in X and Y, 
 **Enter the desired voxel size (= resolution) in [µm]** in the field. The size of the FOV (= object dimensions) is updated automatically.
 
 ><p align="center" width="100%">
->    <img src="screenshots/app_fov.png"><br>
+>    <img src="screenshots/app_FOV.png"><br>
 >    <i>Tab "FOV".</i>
 ></p>
 
