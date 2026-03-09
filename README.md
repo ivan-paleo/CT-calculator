@@ -15,6 +15,7 @@
         - [Download the repository](#download-the-repository)
         - [Start the App](#start-the-app)
     - [Saving](#saving)
+- [Calculation](#calculation)
 - [Operating instructions](#operating-instructions)
     - [Side bar](#side-bar)
     - [Tab "FOV"](#tab-fov)
@@ -101,6 +102,21 @@ There are two ways to get the App:
 ---
 
 
+# Calculation
+The following relationships are used in the app:
+
+$FOV(mm) = \frac{DetectorArea(mm) \times VoxelSize(µm)}{PixelPitch(µm)} = \frac{DetectorArea(mm)}{Magnification}$
+
+$VoxelSize(µm) = \frac{FOV(mm) \times PixelPitch(µm)}{DetectorArea(mm)} = \frac{PixelPitch(µm)}{Magnification}$
+
+$\#pixels = \frac{FOV(mm)}{VoxelSize(µm)} \times 1000 = \frac{DetectorArea(mm)}{PixelPitch(µm)} \times 1000$
+
+with $Magnification = \frac{ImageSize(mm)}{ObjectSize(mm)} = \frac{FDD(mm)}{FOD(mm)}$
+
+
+---
+
+
 # Operating instructions
 
 ## Side bar
@@ -137,10 +153,16 @@ In this tab, the required number of detector pixels is calculated for a given co
 **Enter the desired voxel size (= resolution) in [µm] and the desired FOV (= largest object dimension along X and/or Y) in [mm]** in the corresponding fields. The number of detector pixels (= image size) is updated automatically.
 
 ><p align="center" width="100%">
->    <img src="screenshots/app_NumberPixels.png"><br>
->    <i>Tab "Number of pixels".</i>
+>    <img src="screenshots/app_NumberPixels_ok.png"><br>
+>    <i>Tab "Number of pixels" with number calculated.</i>
 ></p>
 
+Some combinations of voxel size and FOV would need more than 4000 pixels, i.e. more than possible with our detector. In these cases, an error message is displayed.
+
+><p align="center" width="100%">
+>    <img src="screenshots/app_NumberPixels_notok.png"><br>
+>    <i>Tab "Number of pixels" with number not calculated.</i>
+></p>
 
 ---
 
