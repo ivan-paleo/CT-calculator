@@ -35,7 +35,7 @@ ui <- fluidPage(
       # Credit
       splitLayout(cellWidths = c("50%", "50%"),
                   h5("By Ivan Calandra"),
-                  actionButton("GitHub", "CT-voxel-FOV-calculator",
+                  actionButton("GitHub", "CT-calculator",
                                icon = icon("github", lib = "font-awesome"),
                                onclick = "window.open('hhttps://github.com/ivan-paleo/CT-voxel-FOV-calculator', '_blank')")),
 
