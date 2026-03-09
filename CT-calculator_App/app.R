@@ -37,7 +37,7 @@ ui <- fluidPage(
                   h5("By Ivan Calandra"),
                   actionButton("GitHub", "CT-calculator",
                                icon = icon("github", lib = "font-awesome"),
-                               onclick = "window.open('hhttps://github.com/ivan-paleo/CT-voxel-FOV-calculator', '_blank')")),
+                               onclick = "window.open('https://github.com/ivan-paleo/CT-calculator', '_blank')")),
 
       # Version number / date - ADJUST WITH NEW VERSION / DATE
       h5("v0.1 (2026-03-09)"),
@@ -104,7 +104,7 @@ server <- function(input, output) {
   # 3.3 Output for tab 'Number of pixels'
   output$pxnumber_output <- renderUI({
     if (input$fov_input2*1000/input$voxel_input2 > 4000) {
-      HTML("<b>This combination of voxel size and field-of-view requires more pixels than available on this detector.</b><br> Please adjust.")
+      HTML("<p style='color:red;'><b>This combination of voxel size and field-of-view requires more pixels than available on this detector.</b><br> Please adjust.</p>")
     } else {
       HTML(paste("<b>", input$fov_input2*1000/input$voxel_input2, "&times;", input$fov_input2*1000/input$voxel_input2, "pixels are required to scan the given field-of-view at the given voxel size.</b>"))
     }

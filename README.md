@@ -1,6 +1,6 @@
 
 <!-- TOC ignore:true -->
-# CT-calculator_App
+# CT-calculator
 
 <!-- TOC ignore:true -->
 ## Table of content
@@ -42,7 +42,7 @@
 
 This repository contains a [**Shiny App**](CT-calculator_App/app.R) to calculate field-of-view, voxel size and number of pixels of CT scans acquired at the [IMPALA](https://www.leiza.de/forschung/infrastrukturen/labore/impala) / [VOXEL](https://www.leiza.de/forschung/infrastrukturen/labore/voxel-labor-fuer-volumetric-x-ray-examinations-at-leiza). 
 
-Some settings are dependent on the detector, meaning that the calculations are only valid for CT scanners with a detector similar to the one on our Phoenix v|tome|x L450 CT scanner, with pixel size = 100 µm and active area = 400 $\times$ 400 mm.
+Some settings are dependent on the detector, meaning that the calculations are only valid for CT scanners with a detector similar to the one on our Phoenix v|tome|x L450 CT scanner, with pixel pitch = 100 µm and active area = 400 $\times$ 400 mm.
 
 If you would like to adapt the App to your needs, check the sections [How to adapt the App](#how-to-adapt-the-app), [How to contribute](#how-to-contribute) and [License](#license).
 
@@ -109,7 +109,7 @@ $FOV(mm) = \frac{DetectorArea(mm) \times VoxelSize(µm)}{PixelPitch(µm)} = \fra
 
 $VoxelSize(µm) = \frac{FOV(mm) \times PixelPitch(µm)}{DetectorArea(mm)} = \frac{PixelPitch(µm)}{Magnification}$
 
-$\#pixels = \frac{FOV(mm)}{VoxelSize(µm)} \times 1000 = \frac{DetectorArea(mm)}{PixelPitch(µm)} \times 1000$
+$NumberPixels = \frac{FOV(mm)}{VoxelSize(µm)} \times 1000 = \frac{DetectorArea(mm)}{PixelPitch(µm)} \times 1000$
 
 with $Magnification = \frac{ImageSize(mm)}{ObjectSize(mm)} = \frac{FDD(mm)}{FOD(mm)}$
 
