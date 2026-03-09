@@ -1,27 +1,30 @@
-# Fixed variables (all in mm)
+# Fixed variables (all in [mm])
 px_size <- 0.1
 detector_size <- 400
 
 
 # FOV Calculator [mm]
+# Calculate FOV for a given voxel size
 fov.calc <- function(voxel_size) {
   detector_size/(px_size*1000/voxel_size)
 }
 # Specify voxel_size in µm
-fov.calc(86)
+fov.calc(75)
 
 
 # Voxel size calculator [µm]
-voxel.calc <- function(obj_size) {
-  px_size*1000/(detector_size/obj_size)
+# Calculate voxel size for a given FOV
+voxel.calc <- function(fov) {
+  px_size*1000/(detector_size/fov)
 }
-# Specify obj_size in mm
-voxel.calc(370)
+# Specify FOV in mm
+voxel.calc(300)
 
 
 # Pixel count calculator
-pixel.calc <- function(voxel_size, obj_size){
-  (obj_size*(px_size*1000/voxel_size))/px_size
+# Calculate the required number of detector pixels for a give voxel size and FOV
+pixel.calc <- function(voxel_size, fov){
+  (fov*(px_size*1000/voxel_size))/px_size
 }
-# Specify voxel_size in µm and obj_size in mm
-pixel.calc(voxel_size = 45, obj_size = 180)
+# Specify voxel_size in µm and fov in mm
+pixel.calc(voxel_size = 75, fov = 300)
