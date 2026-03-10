@@ -148,6 +148,13 @@ In this tab, the field-of-view (FOV), assuming identical dimensions in X and Y, 
 >    <i>Tab "FOV".</i>
 ></p>
 
+**Due to mechanical/geometrical constraints, it is not possible to set up a voxel size larger than approx. 85 µm without binning.** If the input voxel size is larger than 85 µm, a warning will be displayed.
+
+><p align="center" width="100%">
+>    <img src="screenshots/app_FOV_too-large.png"><br>
+>    <i>The calculated voxel size is too large without binning.</i>
+></p>
+
 
 ## Tab "Voxel size" 
 In this tab, the voxel size is calculated for a given field-of-view (FOV), assuming that all detector pixels are active and that no binning is applied (i.e. image size = 4000 $\times$ 4000 pixels).  
@@ -158,11 +165,16 @@ In this tab, the voxel size is calculated for a given field-of-view (FOV), assum
 >    <i>Tab "Voxel size".</i>
 ></p>
 
-Note that the voxel size should also be set depending on the focal spot size.  
+Note that the **voxel size should also be set depending on the focal spot size**.  
 For the minifocus tube, the focal spot size is fixed: small (0.4 mm) or large (1 mm). The optimal voxel size is approx. 75 µm for the small focal spot and approx. 100µm for the large focal spot.  
 For the microfocus tube, the focal spot size is positively correlated with the beam power (W = kV $\times$ µA). This means that a smaller voxel size (= better resolution) can only be achieved at low power, which works only for objects that do not absorb much the X-rays (due to their composition, size and/or material thickness). 
 
-Due to mechanical/geometrical constraints, it is not possible to set up a voxel size > 86 µm without binning.
+**Due to mechanical/geometrical constraints, it is not possible to set up a voxel size larger than approx. 85 µm without binning.** If the calculated voxel size is larger than 85 µm, a warning will be displayed.
+
+><p align="center" width="100%">
+>    <img src="screenshots/app_VoxelSize_too-large.png"><br>
+>    <i>The calculated voxel size is too large without binning.</i>
+></p>
 
 
 ## Tab "Number of pixels" 
