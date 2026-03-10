@@ -158,6 +158,12 @@ In this tab, the voxel size is calculated for a given field-of-view (FOV), assum
 >    <i>Tab "Voxel size".</i>
 ></p>
 
+Note that the voxel size should also be set depending on the focal spot size.  
+For the minifocus tube, the focal spot size is fixed: small (0.4 mm) or large (1 mm). The optimal voxel size is approx. 75 µm for the small focal spot and approx. 100µm for the large focal spot.  
+For the microfocus tube, the focal spot size is positively correlated with the beam power (W = kV $\times$ µA). This means that a smaller voxel size (= better resolution) can only be achieved at low power, which works only for objects that do not absorb much the X-rays (due to their composition, size and/or material thickness). 
+
+Due to mechanical/geometrical constraints, it is not possible to set up a voxel size > 86 µm without binning.
+
 
 ## Tab "Number of pixels" 
 In this tab, the required number of detector pixels is calculated for a given combination of voxel size and field-of-view (FOV).  

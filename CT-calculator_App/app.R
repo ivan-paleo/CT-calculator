@@ -102,12 +102,20 @@ server <- function(input, output) {
   # 3.1 Output for tab 'FOV'
   # renderUI is necessary to render the multiply symbol correctly
   output$fov_output <- renderUI({
-    HTML(paste("<b>The maximum field-of-view at the given voxel size is", 400*input$voxel_input/100, "&times;", 400*input$voxel_input/100, "mm.</b><br><br> This calculation assumes that all detector pixels are active, that no binning is applied and that only one detector field is used (i.e. image size = 4000 &times; 4000 pixels)."))
+    if (input$voxel_input > 85) {
+      HTML(paste("<b>The maximum field-of-view at the given voxel size is", 400*input$voxel_input/100, "&times;", 400*input$voxel_input/100, "mm.</b><br><p style='color:red;'>Due to mechanical/geometrical constraints, it is not possible to set up a voxel size larger than approx. 85 µm without binning.</p>This calculation assumes that all detector pixels are active, that no binning is applied and that only one detector field is used (i.e. image size = 4000 &times; 4000 pixels)."))
+    } else {
+      HTML(paste("<b>The maximum field-of-view at the given voxel size is", 400*input$voxel_input/100, "&times;", 400*input$voxel_input/100, "mm.</b><br><br> This calculation assumes that all detector pixels are active, that no binning is applied and that only one detector field is used (i.e. image size = 4000 &times; 4000 pixels)."))
+    }
   })
 
   # 3.2 Output for tab 'Voxel size'
   output$voxel_output <- renderUI({
-    HTML(paste("<b>The smallest voxel size at the given field-of-view is", 100*input$fov_input/400, "µm.</b><br><br> This calculation assumes that all detector pixels are active, that no binning is applied and that only one detector field is used (i.e. image size = 4000 &times; 4000 pixels)."))
+    if (100*input$fov_input/400 <= 85) {
+      HTML(paste("<b>The smallest voxel size at the given field-of-view is", 100*input$fov_input/400, "µm.</b><br><br> This calculation assumes that all detector pixels are active, that no binning is applied and that only one detector field is used (i.e. image size = 4000 &times; 4000 pixels)."))
+    } else {
+      HTML(paste("<b>The smallest voxel size at the given field-of-view is", 100*input$fov_input/400, "µm.</b><br> <p style='color:red;'>Due to mechanical/geometrical constraints, it is not possible to set up a voxel size larger than approx. 85 µm without binning.</p>This calculation assumes that all detector pixels are active, that no binning is applied and that only one detector field is used (i.e. image size = 4000 &times; 4000 pixels)."))
+    }
   })
 
   # 3.3 Output for tab 'Number of pixels'
