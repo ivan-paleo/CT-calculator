@@ -32,15 +32,27 @@ ui <- fluidPage(
       # LEIZA logo
       img(src = "Leiza_Logo_Deskriptor_CMYK_rot_LEIZA.png", height = 150),
 
+      # Separator
+      hr(style = "border-top: 1px solid #000000;"),
+
+      # General infos
+      h5("For our detector:"),
+      h5(HTML("<ul><li>pixel pitch = 100 µm &times; 100 µm</li><li>active area = 400 mm &times; 400 mm</li></ul>")),
+      h5("This means that 4000", HTML("&times;"), "4000 pixels per detector field are available."),
+      h5("Extensions in X (VSensor, up to 11,400 pixels) and Y (multi|scan, up to 1.25 m) are possible but they increase both the scan time and the size of the resulting 3D model substantially."),
+
+      # Separator
+      hr(style = "border-top: 1px solid #000000;"),
+
       # Credit
       splitLayout(cellWidths = c("50%", "50%"),
-                  h5("By Ivan Calandra"),
                   actionButton("GitHub", "CT-calculator",
                                icon = icon("github", lib = "font-awesome"),
-                               onclick = "window.open('https://github.com/ivan-paleo/CT-calculator', '_blank')")),
+                               onclick = "window.open('https://github.com/ivan-paleo/CT-calculator', '_blank')"),
+                  h5("By Ivan Calandra")),
 
       # Version number / date - ADJUST WITH NEW VERSION / DATE
-      h5("v0.1 (2026-03-09)"),
+      h5("v0.1 (2026-03-10)"),
       width = 3
     ),
 
@@ -54,7 +66,6 @@ ui <- fluidPage(
         # Tabs, their UIs will be rendered in the server call below
         tabPanel("FOV", fluidRow(
           h2("Calculate field-of-view for a given voxel size"),
-          h5("For our detector, pixel pitch = 100 µm and active area = 400 mm ", HTML("&times;"), "400 mm, meaning that 4000", HTML("&times;"), "4000 pixels are available."),
           numericInput("voxel_input", "Voxel size [µm]", value = 75, min = 1),
 
           # uiOutput is necessary to render the multiply symbol correctly
@@ -63,14 +74,12 @@ ui <- fluidPage(
 
         tabPanel("Voxel size", fluidRow(
           h2("Calculate voxel size for a given field-of-view"),
-          h5("For our detector, pixel pitch = 100 µm and active area = 400 mm ", HTML("&times;"), "400 mm, meaning that 4000", HTML("&times;"), "4000 pixels are available."),
           numericInput("fov_input", "Field-of-view [mm]", value = 300, min = 1),
           uiOutput("voxel_output")
         )),
 
         tabPanel("Number of pixels", fluidRow(
           h2("Calculate the required number of detector pixels for a given voxel size and field-of-view"),
-          h5("For our detector, pixel pitch = 100 µm and active area = 400 mm ", HTML("&times;"), "400 mm, meaning that 4000", HTML("&times;"), "4000 pixels are available."),
           numericInput("voxel_input2", "Voxel size [µm]", value = 75, min = 1),
           numericInput("fov_input2", "Field-of-view [mm]", value = 300, min = 1),
           uiOutput("pxnumber_output")
@@ -93,20 +102,37 @@ server <- function(input, output) {
   # 3.1 Output for tab 'FOV'
   # renderUI is necessary to render the multiply symbol correctly
   output$fov_output <- renderUI({
-    HTML(paste("<b>The maximum field-of-view at the given voxel size is", 400*input$voxel_input/100, "&times;", 400*input$voxel_input/100, "mm.</b><br><br> This calculation assumes that all detector pixels are active and that no binning is applied (i.e. image size = 4000 &times; 4000 pixels)."))
+    HTML(paste("<b>The maximum field-of-view at the given voxel size is", 400*input$voxel_input/100, "&times;", 400*input$voxel_input/100, "mm.</b><br><br> This calculation assumes that all detector pixels are active, that no binning is applied and that only one detector field is used (i.e. image size = 4000 &times; 4000 pixels)."))
   })
 
   # 3.2 Output for tab 'Voxel size'
   output$voxel_output <- renderUI({
-    HTML(paste("<b>The smallest voxel size at the given field-of-view is", 100*input$fov_input/400, "µm.</b><br><br> This calculation assumes that all detector pixels are active and that no binning is applied (i.e. image size = 4000 &times; 4000 pixels)."))
+    HTML(paste("<b>The smallest voxel size at the given field-of-view is", 100*input$fov_input/400, "µm.</b><br><br> This calculation assumes that all detector pixels are active, that no binning is applied and that only one detector field is used (i.e. image size = 4000 &times; 4000 pixels)."))
   })
 
   # 3.3 Output for tab 'Number of pixels'
   output$pxnumber_output <- renderUI({
-    if (input$fov_input2*1000/input$voxel_input2 > 4000) {
-      HTML("<p style='color:red;'><b>This combination of voxel size and field-of-view requires more pixels than available on this detector.</b><br> Please adjust.</p>")
+
+    # Different output depending on the result
+    # If NumberPixels > 11400
+    if (input$fov_input2*1000/input$voxel_input2 > 11400) {
+      HTML(paste("<p style='color:red;'><b>This combination of voxel size and field-of-view requires", input$fov_input2*1000/input$voxel_input2, "&times;", input$fov_input2*1000/input$voxel_input2, "pixels, more pixels than available on this detector, even with VSensor.</b><br> Please adjust.</p>"))
     } else {
-      HTML(paste("<b>", input$fov_input2*1000/input$voxel_input2, "&times;", input$fov_input2*1000/input$voxel_input2, "pixels are required to scan the given field-of-view at the given voxel size.</b>"))
+
+      # If 4000 < NumberPixels <= 7600
+      if (input$fov_input2*1000/input$voxel_input2 > 4000 & input$fov_input2*1000/input$voxel_input2 <= 7600) {
+        HTML(paste("<p style='color:red;'><b>This combination of voxel size and field-of-view requires", input$fov_input2*1000/input$voxel_input2, "&times;", input$fov_input2*1000/input$voxel_input2, "pixels, meaning that VSensor must be used with 2 fields.</p>"))
+      } else {
+
+        # If 7600 < NumberPixels <= 11400
+        if (input$fov_input2*1000/input$voxel_input2 > 7600 & input$fov_input2*1000/input$voxel_input2 <= 11400) {
+          HTML(paste("<p style='color:red;'><b>This combination of voxel size and field-of-view requires", input$fov_input2*1000/input$voxel_input2, "&times;", input$fov_input2*1000/input$voxel_input2, "pixels, meaning that VSensor must be used with 3 fields.</p>"))
+        } else {
+
+          # If NumberPixels <= 4000
+          HTML(paste("<b>", input$fov_input2*1000/input$voxel_input2, "&times;", input$fov_input2*1000/input$voxel_input2, "pixels are required to scan the given field-of-view at the given voxel size.</b>"))
+        }
+      }
     }
   })
 }

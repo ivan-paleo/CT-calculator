@@ -16,6 +16,8 @@
         - [Start the App](#start-the-app)
     - [Saving](#saving)
 - [Calculation](#calculation)
+    - [Relationships](#relationships)
+    - [VSensor and multi|scan](#vsensor-and-multiscan)
 - [Operating instructions](#operating-instructions)
     - [Side bar](#side-bar)
     - [Tab "FOV"](#tab-fov)
@@ -103,6 +105,7 @@ There are two ways to get the App:
 
 
 # Calculation
+## Relationships
 The following relationships are used in the app:
 
 $FOV(mm) = \frac{DetectorArea(mm) \times VoxelSize(µm)}{PixelPitch(µm)} = \frac{DetectorArea(mm)}{Magnification}$
@@ -112,6 +115,14 @@ $VoxelSize(µm) = \frac{FOV(mm) \times PixelPitch(µm)}{DetectorArea(mm)} = \fra
 $NumberPixels = \frac{FOV(mm)}{VoxelSize(µm)} \times 1000 = \frac{DetectorArea(mm)}{PixelPitch(µm)} \times 1000$
 
 with $Magnification = \frac{ImageSize(mm)}{ObjectSize(mm)} = \frac{FDD(mm)}{FOD(mm)}$
+
+
+## VSensor and multi|scan
+The detector has an active area of 400 $\times$ 400 mm with a pixel pitch of 100 $\times$ 100 µm, resulting in 4000 $\times$ 4000 pixels.  
+Extensions in X (VSensor) and Y (multi|scan) are possible but they increase both the scan time and the size of the resulting 3D model substantially.
+
+**It is preferable to scan high objects over wide objects.** This is because the wider the object, the further away from the source it has to be positioned (= the worse the resolution) and the longer the distance the beam has to travel through the object (= more power = less contrasts). This means that while we apply multi|scan very often, we try to limit the use of VSensor.  
+This is why the calculations in the App put the contrains on the X dimensions (object diameter) rather than on the Y axis (object height).
 
 
 ---
@@ -130,7 +141,7 @@ Click the icon *CT-calculator* to open the repository on GitHub.
 
 ## Tab "FOV" 
 In this tab, the field-of-view (FOV), assuming identical dimensions in X and Y, will be calculated for a given voxel size, assuming that all detector pixels are active and that no binning is applied (i.e. image size = 4000 $\times$ 4000 pixels).  
-**Enter the desired voxel size (= resolution) in [µm]** in the field. The size of the FOV (= object dimensions) is updated automatically.
+**Enter the desired voxel size (= resolution) in [µm]** in the field. The size of the FOV (= object diameter and height) is updated automatically.
 
 ><p align="center" width="100%">
 >    <img src="screenshots/app_FOV.png"><br>
@@ -140,7 +151,7 @@ In this tab, the field-of-view (FOV), assuming identical dimensions in X and Y, 
 
 ## Tab "Voxel size" 
 In this tab, the voxel size is calculated for a given field-of-view (FOV), assuming that all detector pixels are active and that no binning is applied (i.e. image size = 4000 $\times$ 4000 pixels).  
-**Enter the desired FOV (= largest object dimension along X and/or Y) in [mm]** in the field. The voxel size (= resolution) is updated automatically.
+**Enter the desired FOV (= largest object diameter along X) in [mm]** in the field. The voxel size (= resolution) is updated automatically.
 
 ><p align="center" width="100%">
 >    <img src="screenshots/app_VoxelSize.png"><br>
@@ -150,19 +161,32 @@ In this tab, the voxel size is calculated for a given field-of-view (FOV), assum
 
 ## Tab "Number of pixels" 
 In this tab, the required number of detector pixels is calculated for a given combination of voxel size and field-of-view (FOV).  
-**Enter the desired voxel size (= resolution) in [µm] and the desired FOV (= largest object dimension along X and/or Y) in [mm]** in the corresponding fields. The number of detector pixels (= image size) is updated automatically.
+**Enter the desired voxel size (= resolution) in [µm] and the desired FOV (= largest object diameter along X) in [mm]** in the corresponding fields. The number of detector pixels (= image size) is updated automatically.
 
 ><p align="center" width="100%">
->    <img src="screenshots/app_NumberPixels_ok.png"><br>
->    <i>Tab "Number of pixels" with number calculated.</i>
+>    <img src="screenshots/app_NumberPixels_1VSensor.png"><br>
+>    <i>Tab "Number of pixels" with 1 detector field.</i>
 ></p>
 
-Some combinations of voxel size and FOV would need more than 4000 pixels, i.e. more than possible with our detector. In these cases, an error message is displayed.
+Some combinations of voxel size and FOV would need more than 11,400 pixels in X, i.e. more than possible with our detector, even with VSensor. In these cases, an error message is displayed.
 
 ><p align="center" width="100%">
->    <img src="screenshots/app_NumberPixels_notok.png"><br>
->    <i>Tab "Number of pixels" with number not calculated.</i>
+>    <img src="screenshots/app_NumberPixels_too-many-px.png"><br>
+>    <i>Tab "Number of pixels" with more pixels than possible.</i>
 ></p>
+
+Other combinations would need more than 4000 but less than 11,400 pixels in X, meaning that VSensor would be needed. The messages indicate how many VSensor fields would be required.
+
+><p align="center" width="100%">
+>    <img src="screenshots/app_NumberPixels_2VSensor.png"><br>
+>    <i>Tab "Number of pixels" with 2 detector fields.</i>
+></p>
+
+><p align="center" width="100%">
+>    <img src="screenshots/app_NumberPixels_3VSensor.png"><br>
+>    <i>Tab "Number of pixels" with 3 detector fields.</i>
+></p>
+
 
 ---
 
