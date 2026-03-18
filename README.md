@@ -98,7 +98,7 @@ There are two ways to get the App:
 
 
 ## Saving
-**In both cases (LEIZA server and local), no input is saved in the App.** If you close the App (or the browser tab), all input and output will be deleted.  
+**In both cases (LEIZA server and local), neither input nor output is saved in the App.** If you close the App (or the browser tab), all input and output will be deleted (but no file will be deleted from your computer).  
 
 
 ---
