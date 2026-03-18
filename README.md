@@ -223,7 +223,7 @@ I appreciate any comment from anyone (expert or novice) to improve this App, so 
 There are three possibilities to contribute.
 
 1.  Submit an issue: If you notice any problem or have a question, submit an [issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/about-issues). You can do so [here](https://github.com/ivan-paleo/CT-calculator/issues).  
-2.  Propose changes: If you know how to write a [Shiny App](https://shiny.posit.co/), please propose text edits as a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (abbreviated "PR").
+2.  Propose changes: If you know how to write a [Shiny App](https://shiny.posit.co/), please propose edits as a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (abbreviated "PR").
 3.  Send me an email: For options 1-2, you need to create a GitHub account. If you do not have one and do not want to sign up, you can still write me an email (Google me to find my email address).
 
 By participating in this project, you agree to abide by our [code of conduct](CONDUCT.md).
